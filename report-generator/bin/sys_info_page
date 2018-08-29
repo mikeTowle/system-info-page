@@ -1,0 +1,48 @@
+#!bin/bash
+
+# Program to output a system information Page
+
+TITLE="System Information Report For $HOSTNAME"
+CURRENT_TIME=`date '+%m-%d-%Y @ %H:%M:%S'`
+TIME_STAMP="Generated on $CURRENT_TIME, by $USER"
+
+report_uptime () {
+  echo "
+        <h2>System Uptime</h2>
+        <pre>$(uptime)</pre>
+        "
+  return
+}
+
+report_diskspace () {
+  echo "
+        <h2>Disk Space</h2>
+        <pre>$(df -h)</pre>
+        "
+  return
+}
+
+report_home_sapce () {
+  echo "
+        <h2>Home Space</h2>
+        <pre>$(du -sh ~/)</pre>
+        "
+  return
+}
+
+
+
+echo "<html>
+        <head>
+          <title>$TITLE</title>
+        </head>
+        <body>
+          <h1>$TITLE</h1>
+          <p>$TIME_STAMP</p>
+          $(report_uptime)
+          $(report_diskspace)
+          $(report_home_sapce)
+        </body>
+      </html>"
+
+
